@@ -1,0 +1,36 @@
+README file for simple printf stm32 project
+Generic code to get retarget of printf working on hopefully any stm32 board.
+
+*   For general setup instructions (IDE, board-specific firmware, etc) see https://github.com/nmilosevic1/STM32_LED_Example/blob/master/README
+
+* uses the LED code found in STM32_LED_Example project, LED setup description found in that repo here: 
+        https://github.com/nmilosevic1/STM32_LED_Example/blob/master/Inc/my_board_info.h
+
+
+This was built for the nucleo-f767zi board but it is generic enough to be adapted to other boards
+* See the my_board_info.h file
+
+I successfully built for 2 other boards (H743 and H503) with bpard specific edits to the one header file.
+     (and myLeds in main.c for H503 since it only has 1 user LED)
+
+
+Setup a new empty STM32CubeIDE project, get your firmware/add to your project, then:
+Copy my_board_info.h, gpio.h, systick.h and uart.h into your project Inc/ directory 
+and copy main.c, gpio.c, systick.c and uart.c into your project Inc/ directory 
+** the systick is just to implement a proper timer and isn't really needed, you can use the same for loop delay as STM32_LED_Example does.
+   however, it could help to determine your clock rate if your board's spec doesn't specify the default rate.
+
+Update my_board_info.h with your board's LED pin(s), port(s) and bus info (see prior repo STM32_LED_Example).
+Update my_board_info.h with your board's USART pin, port, Alt Function type, bus info, and clock rate.
+Update myLeds in main.c with your LED pins/ports (only if you don't have 3 user LEDs).
+
+
+
+You will need either a serial communication tool (such as RealTerm, SerialTool, etc)
+  or you can use python/bash to see your printf statements  (see Linux examples in the Test/ directory)
+ 
+STM32 boards mount as device /dev/ttyACMx on Linux or as port COMx on Windows
+  set your serial com tool of choice to listen on the port where your device mounted itself
+  set the baudrate to the BAUDRATE you chose, the stop bits to 1, the parity to none, and the data size to 8
+  (or use whichever settings you picked in my_board_info.h)
+
