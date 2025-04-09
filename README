@@ -10,7 +10,7 @@ Generic code to get retarget of printf working on hopefully any stm32 board.
 This was built for the nucleo-f767zi board but it is generic enough to be adapted to other boards
 * See the my_board_info.h file
 
-I successfully built for 2 other boards (H743 and H503) with bpard specific edits to the one header file.
+I successfully built for 2 other boards (H743 and H503) with board specific edits to the one header file.
      (and myLeds in main.c for H503 since it only has 1 user LED)
 
 
